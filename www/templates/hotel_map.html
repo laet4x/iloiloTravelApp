@@ -3,5 +3,23 @@
     <ng-map center="[{{current_lat}}, {{current_lng}}]" style="height: 50vh" styles="{{mapStyle}}">
         <marker position="[{{current_lat}}, {{current_lng}}]" title="hello" icon="{ url: 'img/hotel_marker.png' }"></marker>
     </ng-map>
+
+     <div class="card">
+        <div class="list">
+            <a class="item item-icon-left item-text-wrap">
+                <i class="icon ion-location positive"></i>
+                {{hotel.address}}
+            </a>
+            <a class="item item-icon-left item-text-wrap">
+                <i class="icon ion-earth positive"></i>
+                {{hotel.website}}
+            </a>
+            <a class="item item-icon-left">
+                <i class="icon ion-android-call positive"></i>
+                {{hotel.contact}}
+            </a>
+        </div>
+    </div>
+    
   </ion-content>
 </ion-view>
