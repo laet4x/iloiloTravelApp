@@ -5,7 +5,7 @@
       <div class=" item item-image">
         <img ng-src="img/{{hotel.img}}" style="display: block; width: 100%; height: auto; margin-left: auto; margin-right: auto;">
       </div>
-      <ion-item class="item-icon-left assertive">
+      <ion-item class="item-icon-left assertive" ng-click="showMap(hotel.lat, hotel.lng)">
         <i class="icon ion-map"></i>View Location</ion-item>
     </div>
   </ion-content>

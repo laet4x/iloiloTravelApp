@@ -1,0 +1,7 @@
+<ion-view title="Location">
+  <ion-content class="has-header" padding="true">
+    <ng-map center="[{{current_lat}}, {{current_lng}}]" style="height: 50vh" styles="{{mapStyle}}">
+        <marker position="[{{current_lat}}, {{current_lng}}]" title="hello" icon="{ url: 'img/hotel_marker.png' }"></marker>
+    </ng-map>
+  </ion-content>
+</ion-view>
