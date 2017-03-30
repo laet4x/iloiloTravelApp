@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers','ngMap'])
+angular.module('starter', ['ionic', 'starter.controllers','hotels.module','ngMap'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -41,39 +41,15 @@ angular.module('starter', ['ionic', 'starter.controllers','ngMap'])
     }
   })
 
-  .state('app.hotels', {
-      url: '/hotels',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/hotels.html',
-          controller: 'HotelsCtrl'
-        }
+  .state('app.malls', {
+    url: '/malls',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/malls.html',
+        controller: 'MallsCtrl'
       }
-    })
-
-    .state('app.hotel_map', {
-       url: '/hotel_map',
-       params: {
-          lat: null,
-          lng: null,
-        },
-       views: {
-        'menuContent': {
-          templateUrl: 'templates/hotel_map.html',
-          controller: 'HotelsMapCtrl'
-        }
-      }
-    })
-    
-    .state('app.malls', {
-      url: '/malls',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/malls.html',
-          controller: 'MallsCtrl'
-        }
-      }
-    })
+    }
+  })
 
   .state('app.single', {
     url: '/malls/:mallsId',
