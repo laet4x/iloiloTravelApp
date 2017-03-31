@@ -50,5 +50,11 @@ angular.module('starter.controllers', [])
   ];
 })
 
+.controller('VideoCtrl',  ['$scope', '$stateParams', '$state',
+ function ($scope, $stateParams, $state) {
+      $scope.iloiloVideo = 'rjewAPya2fU';
+    }
+])
+
 .controller('MallCtrl', function($scope, $stateParams) {
 });

@@ -1,14 +1,24 @@
 <ion-view view-title="Home">
-  <ion-content>
-     <div class="list card">
-      <div class=" item item-image">
+  <ion-content class="has-header">
+      <div>
         <img ng-src="img/iloilo-city.jpg" style="display: block; width: 100%; height: auto; margin-left: auto; margin-right: auto;">
       </div>
+
       <ion-item class="item-icon-right item-avatar positive" id="home-list-item4" href="#">
         <img src="img/history.png">
         <h2>History</h2>
         <p>City's history.</p><i class="icon ion-android-arrow-forward"></i></ion-item>
-    </div>
+
+        <!-- Location -->
+        <ion-item class="item-icon-right item-avatar positive" id="home-list-item4" href="#">
+        <img src="img/location.png">
+        <h2>Location</h2>
+        <p>City's location.</p><i class="icon ion-android-arrow-forward"></i></ion-item>
+
+        <ion-item class="item-icon-right item-avatar positive" id="home-list-item4" ui-sref="app.video">
+        <img src="img/youtube.png">
+        <h2>Video</h2>
+        <p>City's video preview</p><i class="icon ion-android-arrow-forward"></i></ion-item>
     <!--
     <ion-list id="home-list2">
       <ion-item class="item-icon-right item-avatar positive" id="home-list-item4" ui-sref="menu.history">
