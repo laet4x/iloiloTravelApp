@@ -8,8 +8,7 @@ angular
     { id: 1,
       title: 'Hotel Del Rio',
       img: 'del-rio.jpg',
-      lat: 10.700133, 
-      lng:122.552114,
+      pos:[10.700133, 122.552114],
       desc: {
               address: 'M.H del Pilar St, Molo, Iloilo City, 5000 Iloilo',
               website: 'hoteldelrio.com.ph',
@@ -19,8 +18,7 @@ angular
     { id: 2,
       title: 'Sarabia Manor Hotel' ,
       img: 'sarabia.jpg',
-      lat: 10.699647,
-      lng: 122.556336,
+      pos:[10.699647,122.556336],
       desc: {
               address: 'General Luna Street, Iloilo City Proper, Iloilo City, 5000 Iloilo',
               website: 'sarabiamanorhotel.com',
@@ -30,8 +28,7 @@ angular
     { id: 3,
       title: 'Century 21', 
       img: 'century21.jpg',
-      lat: 10.700421, 
-      lng:122.566201,
+      pos:[10.700421,122.566201],
       desc: {
               address: 'Iloilo City Proper, Iloilo City, Iloilo',
               website: 'ann2.net',
@@ -41,8 +38,7 @@ angular
     { id: 4,
       title: 'Days Hotel', 
       img: 'days.jpg',
-      lat:10.701329, 
-      lng:122.567958,
+      pos:[10.701329, 122.567958],
       desc: {
               address: '4F The Atrium Mall Gen Luna St, Iloilo City Proper, Iloilo City, 5000 Iloilo',
               website: 'wyndhamhotels.com',
@@ -50,21 +46,47 @@ angular
             }
     }
   ]
-  $scope.mapStyle = [{"featureType":"water","stylers":[{"color":"#19a0d8"}]},{"featureType":"administrative","elementType":"labels.text.stroke","stylers":[{"color":"#ffffff"},{"weight":6}]},{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#e85113"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#efe9e4"},{"lightness":-40}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"color":"#efe9e4"},{"lightness":-20}]},{"featureType":"road","elementType":"labels.text.stroke","stylers":[{"lightness":100}]},{"featureType":"road","elementType":"labels.text.fill","stylers":[{"lightness":-100}]},{"featureType":"road.highway","elementType":"labels.icon"},{"featureType":"landscape","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"landscape","stylers":[{"lightness":20},{"color":"#efe9e4"}]},{"featureType":"landscape.man_made","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"lightness":100}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"lightness":-100}]},{"featureType":"poi","elementType":"labels.text.fill","stylers":[{"hue":"#11ff00"}]},{"featureType":"poi","elementType":"labels.text.stroke","stylers":[{"lightness":100}]},{"featureType":"poi","elementType":"labels.icon","stylers":[{"hue":"#4cff00"},{"saturation":58}]},{"featureType":"poi","elementType":"geometry","stylers":[{"visibility":"on"},{"color":"#f0e4d3"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#efe9e4"},{"lightness":-25}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#efe9e4"},{"lightness":-10}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"simplified"}]}]
-  $scope.showMap = function(lat, lng, desc) {
-      console.log(lat, lng, desc)
-      $state.go('app.hotel_map', { lat: lat, lng: lng, desc: desc });
+  $scope.mapStyle = $rootScope.mapStyle;
+  $scope.showMap = function(pos, desc) {
+      $state.go('app.hotel_map', { pos: pos, desc: desc });
   }
 }])
 
-.controller('HotelsMapCtrl', ['$scope', '$stateParams', '$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('HotelsMapCtrl', ['$scope', '$stateParams', '$state','$cordovaGeolocation','$rootScope', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
     // You can include any angular dependencies as parameters for this function
     // TIP: Access Route Parameters for your page via $stateParams.parameterName
-    function ($scope, $stateParams, $state) {
-      $scope.mapStyle = [{"featureType":"water","stylers":[{"color":"#19a0d8"}]},{"featureType":"administrative","elementType":"labels.text.stroke","stylers":[{"color":"#ffffff"},{"weight":6}]},{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#e85113"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#efe9e4"},{"lightness":-40}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"color":"#efe9e4"},{"lightness":-20}]},{"featureType":"road","elementType":"labels.text.stroke","stylers":[{"lightness":100}]},{"featureType":"road","elementType":"labels.text.fill","stylers":[{"lightness":-100}]},{"featureType":"road.highway","elementType":"labels.icon"},{"featureType":"landscape","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"landscape","stylers":[{"lightness":20},{"color":"#efe9e4"}]},{"featureType":"landscape.man_made","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"lightness":100}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"lightness":-100}]},{"featureType":"poi","elementType":"labels.text.fill","stylers":[{"hue":"#11ff00"}]},{"featureType":"poi","elementType":"labels.text.stroke","stylers":[{"lightness":100}]},{"featureType":"poi","elementType":"labels.icon","stylers":[{"hue":"#4cff00"},{"saturation":58}]},{"featureType":"poi","elementType":"geometry","stylers":[{"visibility":"on"},{"color":"#f0e4d3"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#efe9e4"},{"lightness":-25}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#efe9e4"},{"lightness":-10}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"simplified"}]}]
-      $scope.current_lat = $stateParams.lat
-      $scope.current_lng = $stateParams.lng
+    function ($scope, $stateParams, $state,$cordovaGeolocation,$rootScope) {
+      $scope.mapStyle = $rootScope.mapStyle
+      $scope.current_pos = $stateParams.pos
       $scope.hotel = $stateParams.desc
-      console.log($stateParams)
+      $scope.current_lat = null
+      $scope.current_lng = null
+      $scope.locateMe = function() {
+         var posOptions = {timeout: 5000, enableHighAccuracy: false};
+          $cordovaGeolocation
+            .getCurrentPosition(posOptions)
+            .then(function (position) {
+              $scope.current_lat = position.coords.latitude
+              $scope.current_lng = position.coords.longitude
+            }, function(err) {
+              // error
+            });
+
+          var watchOptions = {
+            timeout : 3000,
+            enableHighAccuracy: false // may cause errors if true
+          };
+
+          var watch = $cordovaGeolocation.watchPosition(watchOptions);
+          watch.then(
+            null,
+            function(err) {
+              // error
+            },
+            function(position) {
+              $scope.current_lat = position.coords.latitude
+              $scope.current_lng = position.coords.longitude
+          });
+      }
     }
   ]);

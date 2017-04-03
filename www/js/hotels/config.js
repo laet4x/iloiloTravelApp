@@ -17,8 +17,7 @@ angular
     .state('app.hotel_map', {
        url: '/hotel_map',
        params: {
-          lat: null,
-          lng: null,
+          pos: null,
           desc: {
             address: null,
             website: null,

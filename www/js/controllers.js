@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('app.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
@@ -55,6 +55,65 @@ angular.module('starter.controllers', [])
       $scope.iloiloVideo = 'rjewAPya2fU';
     }
 ])
+
+.controller('LocationCtrl',   ['$scope', '$stateParams', '$ionicLoading', '$ionicPopup', '$state','$rootScope',
+function ($scope, $stateParams, $ionicLoading, $ionicPopup, $state,$rootScope) {
+    if (window.Connection) {
+      if (navigator.connection.type == Connection.NONE) {
+        $ionicPopup.alert({
+          title: "Internet Disconnected",
+          template: "You need internet connection to access online maps."
+        }).then(function (result) {
+          $state.go('app.home')
+        });
+      }
+    }
+      $scope.mapStyle = $rootScope.mapStyle
+    }
+])
+
+.controller('GeoCtrl',   ['$scope', '$stateParams', '$ionicLoading', '$ionicPopup', '$state','$cordovaGeolocation','$rootScope',
+function ($scope, $stateParams, $ionicLoading, $ionicPopup, $state,$cordovaGeolocation,$rootScope) {
+    if (window.Connection) {
+      if (navigator.connection.type == Connection.NONE) {
+        $ionicPopup.alert({
+          title: "Internet Disconnected",
+          template: "You need internet connection to access online maps."
+        }).then(function (result) {
+          $state.go('app.home')
+        });
+      }
+    }
+      var posOptions = {timeout: 5000, enableHighAccuracy: false};
+      $cordovaGeolocation
+        .getCurrentPosition(posOptions)
+        .then(function (position) {
+          $scope.current_lat = position.coords.latitude
+          $scope.current_lng = position.coords.longitude
+        }, function(err) {
+          // error
+        });
+
+      var watchOptions = {
+        timeout : 3000,
+        enableHighAccuracy: false // may cause errors if true
+      };
+
+      var watch = $cordovaGeolocation.watchPosition(watchOptions);
+      watch.then(
+        null,
+        function(err) {
+          // error
+        },
+        function(position) {
+          $scope.current_lat = position.coords.latitude
+          $scope.current_lng = position.coords.longitude
+      });
+
+      $scope.mapStyle = $rootScope.mapStyle
+    }
+])
+
 
 .controller('MallCtrl', function($scope, $stateParams) {
 });

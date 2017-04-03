@@ -1,7 +1,15 @@
 <ion-view title="Location">
   <ion-content class="has-header" padding="true">
-    <ng-map center="[{{current_lat}}, {{current_lng}}]" style="height: 50vh" styles="{{mapStyle}}">
-        <marker position="[{{current_lat}}, {{current_lng}}]" title="hello" icon="{ url: 'img/hotel_marker.png' }"></marker>
+    <ng-map center="{{current_pos}}" style="height: 50vh" styles="{{mapStyle}}">
+        <marker position="{{current_pos}}" title="hello" icon="{ url: 'img/hotel_marker.png' }"></marker>
+        <directions
+          draggable="true"
+          panel=""
+          travel-mode=""
+          waypoint = "[]"
+          origin="{{[current_lat,current_lng]}}"
+          destination="{{current_pos}}">
+        </directions>
     </ng-map>
 
      <div class="card">
@@ -18,6 +26,8 @@
                 <i class="icon ion-android-call positive"></i>
                 {{hotel.contact}}
             </a>
+            <ion-item class="item-icon-left positive" ng-click="locateMe()">
+            <i class="icon ion-map"></i>Route to Current Location</ion-item>
         </div>
     </div>
     

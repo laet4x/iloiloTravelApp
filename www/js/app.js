@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers','hotels.module','ngMap','youtube-embed'])
+angular.module('starter', ['ionic', 'app.controllers','app.services','hotels.module','ngCordova','ngMap','youtube-embed',])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -50,6 +50,25 @@ angular.module('starter', ['ionic', 'starter.controllers','hotels.module','ngMap
     }
   })
 
+  .state('app.location', {
+    url: '/location',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/location.html',
+        controller: 'LocationCtrl'
+      }
+    }
+  })
+
+  .state('app.geolocation', {
+    url: '/geolocation',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/geolocation.html',
+        controller: 'GeoCtrl'
+      }
+    }
+  })
   .state('app.malls', {
     url: '/malls',
     views: {
