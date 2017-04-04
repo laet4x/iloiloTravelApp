@@ -51,3 +51,7 @@
   height: 100%;
   border: 0;
 }
+
+.ion-view-background {
+  background-color: #11c1f3!important;
+}
