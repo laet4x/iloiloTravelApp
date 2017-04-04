@@ -132,21 +132,16 @@ function ($scope, $stateParams, $ionicLoading, $ionicPopup, $state,$cordovaGeolo
             $scope.weatherContainer = true
             $ionicLoading.hide()
             $scope.weatherData = weatherResponse
-            if (weatherResponse.weather[0].description === 'clear sky') {
+            var icon = weatherResponse.weather[0].icon
+            if (icon === '01d') {
               $scope.icon = 'ion-ios-sunny'
-            } else if (weatherResponse.weather[0].description === 'few clouds') {
-              $scope.icon = 'ion-ios-partlysunny'
-            } else if (weatherResponse.weather[0].description === 'scattered clouds') {
+            } else if (icon === '04d' || icon === '03d' || icon === '02d') {
               $scope.icon = 'ion-ios-cloud'
-            } else if (weatherResponse.weather[0].description === 'broken clouds') {
-              $scope.icon = 'ion-ios-cloud'
-            } else if (weatherResponse.weather[0].description === 'shower rain') {
+            } else if (icon === '13d' || icon === '10d'  || icon === '09d') {
               $scope.icon = 'ion-ios-rainy'
-            } else if (weatherResponse.weather[0].description === 'heavy intensity rain') {
-              $scope.icon = 'ion-ios-rainy'
-            } else if (weatherResponse.weather[0].description === 'thunderstorm') {
+            } else if (icon === '11d') {
               $scope.icon = 'ion-ios-thunderstorm'
-            } else if (weatherResponse.weather[0].description === 'snow') {
+            } else if (icon === '13d') {
               $scope.icon = 'ion-ios-snowy'
             }
           }, function (error) {
