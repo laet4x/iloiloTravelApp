@@ -19,7 +19,7 @@ angular.module('starter', ['ionic', 'app.controllers','app.services','hotels.mod
          if(enabled){
            alert("Location Turned ON");
          }else{
-           alert("Location Turned OFF");
+           alert("Location is OFF");
            cordova.plugins.diagnostic.switchToLocationSettings();
          }
       }, function(error){
