@@ -13,7 +13,18 @@ angular.module('starter', ['ionic', 'app.controllers','app.services','hotels.mod
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
-
+    }
+    if (window.cordova) {
+      cordova.plugins.diagnostic.isLocationEnabled(function(enabled){
+         if(enabled){
+           alert("Location Turned ON");
+         }else{
+           alert("Location is OFF");
+           cordova.plugins.diagnostic.switchToLocationSettings();
+         }
+      }, function(error){
+          console.error("The following error occurred: "+error);
+      });
     }
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
@@ -69,6 +80,17 @@ angular.module('starter', ['ionic', 'app.controllers','app.services','hotels.mod
       }
     }
   })
+
+  .state('app.weather', {
+      url: '/weather',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/weather.html',
+          controller: 'WeatherCtrl'
+        }
+      }
+    })
+
   .state('app.malls', {
     url: '/malls',
     views: {

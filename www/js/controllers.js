@@ -114,6 +114,47 @@ function ($scope, $stateParams, $ionicLoading, $ionicPopup, $state,$cordovaGeolo
     }
 ])
 
+.controller('WeatherCtrl', function ($scope, $http, $cordovaGeolocation, $ionicLoading, $ionicPopup) {
+    var apiKey = 'eff0d36340f2f0a69d7bac149e489658'
+    var posOptions = {
+      timeout: 10000,
+      enableHighAccuracy: false
+    };
+    $scope.weatherData = {}
+    $scope.weatherContainer = false
+    $scope.icon = ''
+    $ionicLoading.show({
+      template: 'Getting location...',
+    }).then(function () {
+          $http.get(`http://api.openweathermap.org/data/2.5/weather?lat=10.6969&lon=122.5644&APPID=${apiKey}&units=metric`).then(function (response) {
+            console.log(response.data)
+            var weatherResponse = response.data
+            $scope.weatherContainer = true
+            $ionicLoading.hide()
+            $scope.weatherData = weatherResponse
+            var icon = weatherResponse.weather[0].icon
+            if (icon === '01d') {
+              $scope.icon = 'ion-ios-sunny'
+            } else if (icon === '04d' || icon === '03d' || icon === '02d') {
+              $scope.icon = 'ion-ios-cloud'
+            } else if (icon === '13d' || icon === '10d'  || icon === '09d') {
+              $scope.icon = 'ion-ios-rainy'
+            } else if (icon === '11d') {
+              $scope.icon = 'ion-ios-thunderstorm'
+            } else if (icon === '13d') {
+              $scope.icon = 'ion-ios-snowy'
+            }
+          }, function (error) {
+            $ionicLoading.hide()
+            $ionicPopup.alert({
+              title: 'Error',
+              template: 'Please check your internet connection.'
+            }).then(function () {
+              ionic.Platform.exitApp();
+            });
+          });
+       });
+})
 
 .controller('MallCtrl', function($scope, $stateParams) {
 });
